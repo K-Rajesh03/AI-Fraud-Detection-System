@@ -1,45 +1,43 @@
+```python
 import os
 import joblib
 import pandas as pd
 
 
-# --------------------------------------------------
-# PATHS
-# --------------------------------------------------
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# PATHS
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_PATH = os.path.join(
     BASE_DIR,
-    "models",
     "fraud_detection_paysim_model.pkl"
 )
 
 PREPROCESSOR_PATH = os.path.join(
     BASE_DIR,
-    "models",
     "fraud_detection_paysim_preprocessor.pkl"
 )
 
 FEATURES_PATH = os.path.join(
     BASE_DIR,
-    "models",
     "fraud_detection_features.pkl"
 )
 
 
-# --------------------------------------------------
+
 # LOAD MODEL COMPONENTS
-# --------------------------------------------------
+
 
 model = joblib.load(MODEL_PATH)
 preprocessor = joblib.load(PREPROCESSOR_PATH)
 FEATURES = joblib.load(FEATURES_PATH)
 
 
-# --------------------------------------------------
+
 # FEATURE ENGINEERING
-# --------------------------------------------------
+
 
 def create_transaction_features(transaction):
     transaction = transaction.copy()
@@ -79,9 +77,9 @@ def create_transaction_features(transaction):
     return transaction
 
 
-# --------------------------------------------------
+
 # PREPARE TRANSACTION
-# --------------------------------------------------
+
 
 def prepare_transaction(transaction):
     transaction_df = pd.DataFrame([transaction])
@@ -93,9 +91,8 @@ def prepare_transaction(transaction):
     return transaction_df[FEATURES]
 
 
-# --------------------------------------------------
 # RISK LEVEL
-# --------------------------------------------------
+
 
 def get_risk_level(probability):
 
@@ -109,9 +106,9 @@ def get_risk_level(probability):
         return "HIGH"
 
 
-# --------------------------------------------------
+
 # PREDICT TRANSACTION
-# --------------------------------------------------
+
 
 def predict_transaction(transaction):
 
@@ -141,7 +138,7 @@ def predict_transaction(transaction):
 
 
 # --------------------------------------------------
-# TEST
+# LOCAL TEST
 # --------------------------------------------------
 
 if __name__ == "__main__":
@@ -168,3 +165,4 @@ if __name__ == "__main__":
         f"{result['fraud_probability'] * 100:.2f}%"
     )
     print("Risk Level:", result["risk"])
+```
