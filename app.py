@@ -21,7 +21,7 @@ sys.path.append(BASE_DIR)
 # IMPORT PREDICTION FUNCTIONS
 # ============================================================
 
-from src.prediction import (
+from prediction import (
     model,
     preprocessor,
     FEATURES,
