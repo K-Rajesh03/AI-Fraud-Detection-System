@@ -1,12 +1,6 @@
-```python
 import os
 import joblib
 import pandas as pd
-
-
-
-# PATHS
-
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -25,18 +19,9 @@ FEATURES_PATH = os.path.join(
     "fraud_detection_features.pkl"
 )
 
-
-
-# LOAD MODEL COMPONENTS
-
-
 model = joblib.load(MODEL_PATH)
 preprocessor = joblib.load(PREPROCESSOR_PATH)
 FEATURES = joblib.load(FEATURES_PATH)
-
-
-
-# FEATURE ENGINEERING
 
 
 def create_transaction_features(transaction):
@@ -77,10 +62,6 @@ def create_transaction_features(transaction):
     return transaction
 
 
-
-# PREPARE TRANSACTION
-
-
 def prepare_transaction(transaction):
     transaction_df = pd.DataFrame([transaction])
 
@@ -91,27 +72,16 @@ def prepare_transaction(transaction):
     return transaction_df[FEATURES]
 
 
-# RISK LEVEL
-
-
 def get_risk_level(probability):
-
     if probability < 0.30:
         return "LOW"
-
     elif probability < 0.70:
         return "MEDIUM"
-
     else:
         return "HIGH"
 
 
-
-# PREDICT TRANSACTION
-
-
 def predict_transaction(transaction):
-
     model_input = prepare_transaction(transaction)
 
     processed_input = preprocessor.transform(
@@ -135,34 +105,3 @@ def predict_transaction(transaction):
         "fraud_probability": fraud_probability,
         "risk": risk
     }
-
-
-# --------------------------------------------------
-# LOCAL TEST
-# --------------------------------------------------
-
-if __name__ == "__main__":
-
-    test_transaction = {
-        "step": 100,
-        "type": "TRANSFER",
-        "amount": 25000,
-        "oldbalanceOrg": 50000,
-        "newbalanceOrig": 25000,
-        "oldbalanceDest": 10000,
-        "newbalanceDest": 35000
-    }
-
-    result = predict_transaction(
-        test_transaction
-    )
-
-    print("\nTransaction Prediction")
-    print("----------------------")
-    print("Prediction:", result["prediction"])
-    print(
-        "Fraud Probability:",
-        f"{result['fraud_probability'] * 100:.2f}%"
-    )
-    print("Risk Level:", result["risk"])
-```
