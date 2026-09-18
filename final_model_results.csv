@@ -1,0 +1,15 @@
+Metric,Value
+Model,Random Forest
+Dataset,PaySim
+Accuracy,0.9997917524541777
+Precision,0.8618697478991597
+Recall,0.9987827145465612
+F1-Score,0.9252889765999436
+ROC-AUC,0.9995031604692655
+Test Samples,1272524
+Fraud Test Samples,1643
+Legitimate Test Samples,1270881
+True Negatives,1270618
+False Positives,263
+False Negatives,2
+True Positives,1641
