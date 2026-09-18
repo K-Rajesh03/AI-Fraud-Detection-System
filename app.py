@@ -1,10 +1,13 @@
 import streamlit as st
-import sys
-import os
 import shap
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from prediction import (
+    predict_transaction,
+    create_transaction_features,
+    FEATURES
+)
 
 # ============================================================
 # PROJECT PATH
